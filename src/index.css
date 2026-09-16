@@ -1,13 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+  }
 
 html {
-  scroll-behavior: smooth;
+scroll-behavior: smooth;
 }
 
 body {
-  font-family: Arial, sans-serif;
+font-family: 'Inter', sans-serif;
+background: #050505;
+color: #f5f5f5;
+overflow-x: hidden;
+}
+
+/* Smooth dark background */
+body::before {
+content: "";
+position: fixed;
+inset: 0;
+z-index: -2;
+pointer-events: none;
+background:
+radial-gradient(
+circle at 15% 20%,
+rgba(120, 80, 255, 0.10),
+transparent 30%
+),
+radial-gradient(
+circle at 85% 70%,
+rgba(0, 200, 255, 0.07),
+transparent 30%
+);
+}
+
+/* Subtle grid */
+body::after {
+content: "";
+position: fixed;
+inset: 0;
+z-index: -1;
+pointer-events: none;
+opacity: 0.18;
+background-image:
+linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+background-size: 50px 50px;
+
+mask-image: linear-gradient(
+to bottom,
+black 0%,
+transparent 85%
+);
+}
+
+/* Selection */
+::selection {
+background: rgba(140, 100, 255, 0.35);
+color: white;
+}
+
+/* Links */
+a {
+color: inherit;
+text-decoration: none;
+}
+
+/* Buttons */
+button {
+font-family: inherit;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+width: 8px;
+}
+
+::-webkit-scrollbar-track {
+background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+background: #2a2a2a;
+border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: #444;
+}
+
+/* Common section styling */
+section {
+position: relative;
+width: 100%;
+padding: 110px 8%;
+}
+
+/* Container helper */
+.container {
+width: 100%;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+section {
+padding: 80px 6%;
+}
+}
+/* =========================================
+PREMIUM NAVBAR
+========================================= */
+
+.navbar {
+position: fixed;
+top: 20px;
+left: 0;
+width: 100%;
+z-index: 1000;
+padding: 0 6%;
+}
+
+.navbar-container {
+max-width: 1100px;
+height: 64px;
+margin: 0 auto;
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+padding: 0 22px;
+
+background: rgba(12, 12, 14, 0.72);
+border: 1px solid rgba(255, 255, 255, 0.08);
+border-radius: 18px;
+
+backdrop-filter: blur(18px);
+-webkit-backdrop-filter: blur(18px);
+
+box-shadow:
+0 10px 40px rgba(0, 0, 0, 0.35),
+inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+transition: all 0.3s ease;
+}
+
+/* Logo */
+
+.logo {
+font-size: 17px;
+font-weight: 700;
+letter-spacing: -0.4px;
+
+background: linear-gradient(
+90deg,
+#ffffff,
+#a78bfa
+);
+
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
+transition: transform 0.3s ease;
+}
+
+.logo:hover {
+transform: translateY(-1px);
+}
+
+/* Navigation */
+
+.nav-links {
+display: flex;
+align-items: center;
+gap: 6px;
+}
+
+.nav-links a {
+position: relative;
+
+padding: 9px 13px;
+
+color: #a1a1aa;
+font-size: 13px;
+font-weight: 500;
+
+border-radius: 10px;
+
+transition:
+color 0.25s ease,
+background 0.25s ease,
+transform 0.25s ease;
+}
+
+.nav-links a:hover {
+color: #ffffff;
+background: rgba(255, 255, 255, 0.06);
+transform: translateY(-1px);
+}
+
+/* Small glow underneath links */
+
+.nav-links a::after {
+content: "";
+
+position: absolute;
+left: 50%;
+bottom: 4px;
+
+width: 0;
+height: 2px;
+
+border-radius: 10px;
+
+background: #a78bfa;
+
+transform: translateX(-50%);
+transition: width 0.25s ease;
+}
+
+.nav-links a:hover::after {
+width: 16px;
+}
+
+/* Mobile menu button */
+
+.menu-button {
+display: none;
+
+border: none;
+background: transparent;
+
+color: #ffffff;
+font-size: 22px;
+
+cursor: pointer;
+
+padding: 6px;
+}
+
+/* =========================================
+MOBILE NAVBAR
+========================================= */
+
+@media (max-width: 768px) {
+
+.navbar {
+top: 14px;
+padding: 0 5%;
+}
+
+.navbar-container {
+height: 58px;
+padding: 0 18px;
+border-radius: 16px;
+}
+
+.menu-button {
+display: block;
+}
+
+.nav-links {
+position: absolute;
+
+top: 68px;
+left: 0;
+right: 0;
+
+display: flex;
+flex-direction: column;
+align-items: stretch;
+
+padding: 10px;
+
+background: rgba(12, 12, 14, 0.94);
+border: 1px solid rgba(255, 255, 255, 0.08);
+border-radius: 16px;
+
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+
+opacity: 0;
+visibility: hidden;
+transform: translateY(-10px);
+
+transition:
+  opacity 0.25s ease,
+  transform 0.25s ease,
+  visibility 0.25s ease;
+
+}
+
+.nav-links.active {
+opacity: 1;
+visibility: visible;
+transform: translateY(0);
+}
+
+.nav-links a {
+padding: 13px 14px;
+font-size: 14px;
+}
+
+.nav-links a::after {
+display: none;
+}
 }
